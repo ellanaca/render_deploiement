@@ -7,6 +7,8 @@ import os
 
 app = FastAPI()
 
+
+
 # Charger les variables d'environnement
 load_dotenv()
 
@@ -20,7 +22,8 @@ DB_PORT = os.getenv("DB_PORT")
 origins = [
     "http://localhost",
     "http://localhost:8501",
-    "http://127.0.0.1:8501"
+    "http://127.0.0.1:8501",
+    "https://render-deploiement.onrender.com/"
 ]
 
 app.add_middleware(
@@ -38,7 +41,7 @@ class PredictionInput(BaseModel):
     prediction: str
 
 # Route pour sauvegarder la prédiction
-@app.post("/save_prediction/")
+@app.post("/predict")
 async def save_prediction(payload: PredictionInput):
     try:
         # Connexion à la base de données

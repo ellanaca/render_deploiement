@@ -149,7 +149,6 @@ if st.session_state["is_logged"] == True:
     main()
 
 
-# if __name__ == "__main__":
 
 
 
