@@ -2,6 +2,11 @@ import streamlit as st
 import requests
 import pandas as pd
 import joblib
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 # Définition de l'URL de l'API FastAPI
 API_URL = "http://localhost:8000"
@@ -75,7 +80,7 @@ def predict(data):
         st.error(f"Erreur lors de la prédiction : {e}")
         return None
 
-# Application Streamlit
+
 def main():
     st.title('App de Prédiction')
 
@@ -111,8 +116,41 @@ def main():
         else:
             st.error("Erreur lors de la prédiction")
 
-if __name__ == "__main__":
+def change_is_logged_session():
+    st.session_state["is_logged"] = not st.session_state["is_logged"]
+
+### WEB APPLICATION ###
+# session state
+if "is_logged" not in st.session_state:
+    st.session_state["is_logged"] = False
+
+
+# login form if not logged
+if st.session_state["is_logged"] == False:
+
+    placeholder = st.empty()
+
+    with placeholder.form("login"):
+        st.markdown("#### Bonjour, veuillez renseigner vos identifiants")
+        user_email = st.text_input(label="Email", placeholder="votremail@exemple.com")
+        user_password = st.text_input(label="Mot de passe", placeholder="Enter votre mot de passe", type="password")
+        login_button = st.form_submit_button("Login")
+
+        if ((login_button) and (user_email == os.environ['EMAIL']) and (user_password == os.environ['PASSWORD'])):
+            change_is_logged_session()
+            placeholder.empty()
+        elif ((login_button) and ((user_email != os.environ['EMAIL']) or (user_password != os.environ['PASSWORD']))):
+            st.error('Identifiants incorrects, veuillez réessayer', icon="⚠️")
+
+# submit main  if logged
+if st.session_state["is_logged"] == True:
+    st.button("Déconnexion", on_click=change_is_logged_session)
+    st.text("Bienvenue, vous allez pouvoir connaitre la prédiction financière de votre entreprise !")
     main()
+
+
+# if __name__ == "__main__":
+
 
 
 
