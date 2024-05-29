@@ -9,7 +9,7 @@ load_dotenv()
 
 
 # Définition de l'URL de l'API FastAPI
-API_URL = "http://localhost:8000"
+url = os.environ['FASTAPI_URL']
 headers = {'Content-Type': 'application/json'}
 
 # Fonction pour appeler l'API FastAPI
@@ -67,7 +67,7 @@ def predict(data):
         }
 
         # Envoyer la prédiction à Supabase via l'API
-        response = requests.post(f"{API_URL}/save_prediction/", json=data_to_send, headers=headers)
+        response = requests.post(f"{url}/save_prediction/", json=data_to_send, headers=headers)
 
         if response.status_code == 200:
             result = response.json()
