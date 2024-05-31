@@ -4,9 +4,12 @@ import pandas as pd
 import joblib
 import os
 from dotenv import load_dotenv
+from fastapi import FastAPI
+
 
 load_dotenv()
 
+app = FastAPI()
 
 # Définition de l'URL de l'API FastAPI
 url = os.environ['FASTAPI_URL']
