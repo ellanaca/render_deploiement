@@ -111,10 +111,10 @@ def main():
 
         prediction = predict(data)
 
-        if prediction is not None:
-            st.write(f"Prédiction: {0}")
-        else:
-            st.error("Erreur lors de la prédiction")
+        # if prediction is not None:
+        #     st.write(f"Prédiction: {0}")
+        # else:
+        #     st.error("Erreur lors de la prédiction")
 
 def change_is_logged_session():
     st.session_state["is_logged"] = not st.session_state["is_logged"]
