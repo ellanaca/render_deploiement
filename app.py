@@ -62,14 +62,15 @@ def predict(data):
         data_to_send = {
             "orga_segment": data["orga_segment"],
             "nom_gestionnaire": data["nom_gestionnaire"],
-            "prediction": st.write(str([prediction]))
+            "prediction": str(prediction[prediction])
         }
-
+        str(
         # Envoyer la prédiction à Supabase via l'API
         response = requests.post(f"{url}/save_prediction/", json=data_to_send, headers=headers)
 
         if response.status_code == 200:
             result = response.json()
+            st.write(f"Prédiction: {prediction}")
             return result.get("message")
         else:
             st.error(f"Erreur de l'API : {response.status_code}, {response.text}")
