@@ -64,7 +64,7 @@ def predict(data):
             "nom_gestionnaire": data["nom_gestionnaire"],
             "prediction": str(prediction[prediction])
         }
-        str(
+        
         # Envoyer la prédiction à Supabase via l'API
         response = requests.post(f"{url}/save_prediction/", json=data_to_send, headers=headers)
 
