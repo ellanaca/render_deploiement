@@ -61,7 +61,7 @@ def predict(data):
         # Préparer les données pour l'API
         data_to_send = {
             "orga_segment": data["orga_segment"],
-            "nom_gestionnaire": data["nom_gestionnaire"]#,
+            "nom_gestionnaire": data["nom_gestionnaire"],
             "prediction": str(prediction[0])
         }
         
