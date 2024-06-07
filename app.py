@@ -61,8 +61,8 @@ def predict(data):
         # Préparer les données pour l'API
         data_to_send = {
             "orga_segment": data["orga_segment"],
-            "nom_gestionnaire": data["nom_gestionnaire"],
-            "prediction": str(prediction[prediction])
+            "nom_gestionnaire": data["nom_gestionnaire"]#,
+            # "prediction": str(prediction[prediction])
         }
         
         # Envoyer la prédiction à Supabase via l'API
