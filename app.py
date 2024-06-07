@@ -19,23 +19,38 @@ def predict(data):
             model = joblib.load(f)
 
         # Assurer que les colonnes du DataFrame correspondent aux colonnes attendues par le modèle
-        column_order = ["Orga Segment", "Client Comptable", "Infotype Garantie", "Montant HT (FI-AR)", "Evaluation",
-                        "delai aloué", "montant garantie", "encours"]
+        column_order = [
+            "Orga Segment",
+            "Client Comptable",
+            "Infotype Garantie",
+            "Montant HT (FI-AR)",
+            "Evaluation",
+            "delai aloué",
+            "montant garantie",
+            "encours"
+        ]
 
         # Renommer les clés du dictionnaire pour correspondre aux noms de colonnes attendus
         data_mapped = {
             "Orga Segment": data["orga_segment"],
             "Client Comptable": data["client_comptable"],
-            "Infotype Garantie": data["infotype_garantie"],
+            # "Infotype Garantie": data["infotype_garantie"],
             "Montant HT (FI-AR)": data["montant_ht_fi_ar"],
-            "Evaluation": data["evaluation"],
+            # "Evaluation": data["evaluation"],
             "delai aloué": data["delai_aloue"],
-            "montant garantie": data["montant_garantie"],
+            # "montant garantie": data["montant_garantie"],
             "encours": data["encours"]
         }
+        data_dur = {
+            "Infotype Garantie": 60,
+            "Evaluation": 7,
+            "montant garantie": 30000,
+        }
+
+        data_combined = {**data_mapped, **data_dur}
 
         # Créer le DataFrame
-        X = pd.DataFrame([data_mapped])[column_order]
+        X = pd.DataFrame([data_combined])[column_order]
 
         # Gérer les valeurs manquantes
         X.replace("", None, inplace=True)
@@ -87,13 +102,18 @@ def main():
     # Collecte des entrées utilisateur
     orga_segment = st.text_input("Orga Segment")
     client_comptable = st.text_input("Client Comptable")
-    infotype_garantie = st.text_input("Infotype Garantie")
+    # infotype_garantie = st.text_input("Infotype Garantie")
     montant_ht_fi_ar = st.number_input("Montant HT (FI-AR)")
-    evaluation = st.text_input("Evaluation")
+    # evaluation = st.text_input("Evaluation")
     delai_aloue = st.number_input("Délai Alloué")
-    montant_garantie = st.number_input("Montant Garantie")
+    # montant_garantie = st.number_input("Montant Garantie")
     encours = st.number_input("Encours")
     nom_gestionnaire = st.text_input("Nom Gestionnaire")
+
+    montant_garantie = 30000
+    evaluation = 7
+    infotype_garantie = 60
+    
 
     # Appeler l'API lors du clic sur le bouton
     if st.button('Faire une Prédiction'):
