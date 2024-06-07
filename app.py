@@ -37,14 +37,15 @@ def predict(data):
             # "Infotype Garantie": data["infotype_garantie"],
             "Montant HT (FI-AR)": data["montant_ht_fi_ar"],
             # "Evaluation": data["evaluation"],
-            "delai aloué": data["delai_aloue"],
+            "delai aloué": data["delai_aloue"]#,
             # "montant garantie": data["montant_garantie"],
-            "encours": data["encours"]
+            # "encours": data["encours"]
         }
         data_dur = {
             "Infotype Garantie": 60,
             "Evaluation": 7,
             "montant garantie": 30000,
+            "encours": 3000
         }
 
         data_combined = {**data_mapped, **data_dur}
@@ -107,12 +108,13 @@ def main():
     # evaluation = st.text_input("Evaluation")
     delai_aloue = st.number_input("Délai Alloué")
     # montant_garantie = st.number_input("Montant Garantie")
-    encours = st.number_input("Encours")
+    # encours = st.number_input("Encours")
     nom_gestionnaire = st.text_input("Nom Gestionnaire")
 
     montant_garantie = 30000
     evaluation = 7
     infotype_garantie = 60
+    encours = 3000
     
 
     # Appeler l'API lors du clic sur le bouton
