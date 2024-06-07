@@ -70,7 +70,7 @@ def predict(data):
 
         if response.status_code == 200:
             result = response.json()
-            st.write(f"Prédiction: {prediction}")
+            st.write(f"Prédiction: {prediction[0]}")
             return result.get("message")
         else:
             st.error(f"Erreur de l'API : {response.status_code}, {response.text}")
